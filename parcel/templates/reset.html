@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - My Website{% endblock %}
+
+{% block content %}
+<h1>Enter new password 👇</h1><br>
+    <H2>Please enter your new password twice so we can verify you typed it in correctly.🙏😌!</H2>
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit"/>
+</form>
+     
+{% endblock %}

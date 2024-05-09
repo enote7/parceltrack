@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Edit Parcel</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            background: url("{% static 'images/q1.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            transition: background-image 3s ease-in-out;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #e1e6d9d5;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px;
+        }
+
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-right: 20px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .nav-link:hover {
+            color: #ddd;
+        }
+
+        .nav-link.active {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">Parcel System Logout</a>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="{% url 'home' %}" class="nav-link {% if request.path == '/home/' %}active{% endif %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'about_us' %}" class="nav-link {% if request.path == '/about_us/' %}active{% endif %}">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'track_status' %}" class="nav-link {% if request.path == '/track_status/' %}active{% endif %}">Track Status</a>
+            </li>
+            <!-- Add more navigation items as needed -->
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="container">
+        <h1>Edit Parcel</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">Save</button>
+        </form>
+    </div>
+    <script>
+        // Array of image URLs
+        const imageUrls = [
+            "{% static 'images/q1.jpg' %}",
+            "{% static 'images/q2.jpg' %}",
+            "{% static 'images/q3.jpg' %}",
+            "{% static 'images/q4.jpg' %}",
+            "{% static 'images/q5.jpg' %}",
+            "{% static 'images/q6.jpg' %}",
+            "{% static 'images/q7.jpg' %}",
+            "{% static 'images/q8.jpg' %}",
+            "{% static 'images/q9.jpg' %}",
+            "{% static 'images/q10.jpg' %}"
+        ];
+
+        let currentImageIndex = 0;
+
+        function changeBackgroundImage() {
+            document.body.style.backgroundImage = `url(${imageUrls[currentImageIndex]})`;
+            currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+        }
+
+        // Change background image every 3 seconds
+        setInterval(changeBackgroundImage, 3000);
+    </script>
+</body>
+</html>

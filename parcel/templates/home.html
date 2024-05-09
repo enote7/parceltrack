@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url("{% static 'images/q1.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            transition: background-image 3s ease-in-out;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+        }
+        .user-guide {
+            margin-top: 2rem;
+            text-align: center; /* Center align user guide */
+            background-color: rgba(255, 255, 0, 0.5); /* Transparent yellow background */
+            padding: 1rem;
+        }
+        .user-guide h2 {
+            margin-bottom: 1rem;
+            color: red; /* Red text color */
+            font-weight: bold; /* Bold text */
+        }
+        .user-guide ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .user-guide ul li {
+            margin-bottom: 0.5rem;
+            color: red; /* Red text color */
+        }
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px;
+        }
+
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-right: 20px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .nav-link:hover {
+            color: #ddd;
+        }
+
+        .nav-link.active {
+            font-weight: bold;
+        }
+        .nav-item {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body> 
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">Parcel System Logout</a>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="{% url 'home' %}" class="nav-link {% if request.path == '/home/' %}active{% endif %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'register_parcel' %}" class="nav-link {% if request.path == '/register_parcel/' %}active{% endif %}">register_parcel</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'parceldetailhistory' %}" class="nav-link {% if request.path == '/parceldetailhistory/' %}active{% endif %}">parceldetailhistory</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'about_us' %}" class="nav-link {% if request.path == '/about_us/' %}active{% endif %}">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'track_status' %}" class="nav-link {% if request.path == '/track_status/' %}active{% endif %}">Track Status</a>
+            </li>
+            <!-- Add more navigation items as needed -->
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="container">
+        <h1>Welcome to Kakise Bus Company Tracking System</h1>
+        <p>This is the home page of our tracking system.</p>
+        
+        <div class="user-guide">
+            <h2>User Guide</h2>
+            <ul>
+                <li><strong>Clients:</strong> Can access the tracking status page to check delivery status
+                    Clients can enter a tracking number that has been assigned to their parcel in order to know the status of the Parcel
+                    The parcel status includes.</li>
+                <li><strong>Parcel Staff:</strong> Can access the parcel details page to view and manage parcel information.</li>
+                <li><strong>Admin:</strong> Can access the admin dashboard to manage users, parcels, and system settings.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Array of image URLs
+        const imageUrls = [
+            "{% static 'images/q1.jpg' %}",
+            "{% static 'images/q2.jpg' %}",
+            "{% static 'images/q3.jpg' %}",
+            "{% static 'images/q4.jpg' %}",
+            "{% static 'images/q5.jpg' %}",
+            "{% static 'images/q6.jpg' %}",
+            "{% static 'images/q7.jpg' %}",
+            "{% static 'images/q8.jpg' %}",
+            "{% static 'images/q9.jpg' %}",
+            "{% static 'images/q10.jpg' %}"
+        ];
+
+        let currentImageIndex = 0;
+
+        function changeBackgroundImage() {
+            document.body.style.backgroundImage = `url(${imageUrls[currentImageIndex]})`;
+            currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+        }
+
+        // Change background image every 3 seconds
+        setInterval(changeBackgroundImage, 3000);
+    </script>
+</body>
+</html>

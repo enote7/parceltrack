@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>About Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .images figure {
+            text-align: center;
+        }
+        .images figcaption {
+            margin-top: 5px;
+        }
+        header {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .images img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .mission {
+            margin-bottom: 2rem;
+        }
+        .goals {
+            margin-bottom: 2rem;
+        }
+        .purpose {
+            margin-bottom: 2rem;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+        /* Navigation Bar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px;
+        }
+
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-right: 20px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .nav-link:hover {
+            color: #ddd;
+        }
+
+        .nav-link.active {
+            font-weight: bold;
+        }
+        .nav-item {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">Parcel System Logout</a>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="{% url 'home' %}" class="nav-link {% if request.path == '/home/' %}active{% endif %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'about_us' %}" class="nav-link {% if request.path == '/about_us/' %}active{% endif %}">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'track_status' %}" class="nav-link {% if request.path == '/track_status/' %}active{% endif %}">Track Status</a>
+            </li>
+            <!-- Add more navigation items as needed -->
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="container">
+        <header>
+            <h1>About Us</h1>
+        </header>
+            <h2>Our Mission</h2>
+        <p class="mission">
+            Our mission is to provide a reliable and efficient tracking parcel system that ensures seamless delivery services from source to destination areas.
+        </p>
+        <h2>Our Goals</h2>
+        <p class="goals">
+            - Ensure real-time tracking of parcels<br>
+            - Provide accurate delivery status updates<br>
+            - Enhance customer satisfaction through transparent and secure tracking processes<br>
+            - Optimize logistics operations for timely deliveries<br>
+        </p>
+        <h2>System Purpose</h2>
+        <p class="purpose">
+            The purpose of our tracking parcel system is to empower users with the ability to monitor their goods' journey, from the point of origin to the specified destination areas. We aim to revolutionize the delivery experience by offering comprehensive tracking features and reliable delivery information.
+        </p>
+    </div>
+    <h2 style="text-align: center; color: red;">Admins</h2><br>
+    <div class="images">
+        <figure>
+            <img src="{% static 'images/q1.jpg' %}" alt="Image 1">
+            <figcaption  style="color: blue; font-size: 25px;">Dero</figcaption>
+        </figure>
+        <figure>
+            <img src="{% static 'images/q2.jpg' %}" alt="Image 2">
+            <figcaption  style="color: blue; font-size: 25px;">Lyn</figcaption>
+        </figure>
+    </div>
+</body>
+</html>

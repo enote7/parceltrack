@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <title>Sign up</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}">
+  <style>
+    .container {
+        max-width: 500px;
+        margin: auto;
+        background-color: rgba(80, 236, 202, 0.8); /* Transparent white background */
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="email"],
+    input[type="text"],
+    input[type="password"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        background-color: rgba(255, 255, 255, 0.5); /* Transparent white background for input fields */
+    }
+    input[type="submit"],
+    button {
+        background-color: #007bff;
+        color: #000000;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover,
+    button:hover {
+        background-color: #15ff00;
+    }
+    button {
+        text-decoration: none;
+        display: inline-block;
+        border: none;
+        background: blue;
+        color: #000000;
+        cursor: pointer;
+    }
+    body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url("{% static 'images/q1.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            transition: background-image 3s ease-in-out;
+        }
+    a{
+        color: #000000;
+    }        /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .fieldWrapper {
+        margin-bottom: 10px;
+    }
+    .error-message {
+        color: red;
+        font-size: 14px;
+    }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2 style="background-color: #007bff; columns: rgb(0, 255, 179); font-size: 20px; font-weight: 900;">Signup</h2>
+    <form style="color: #000000;" id="signupForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="fieldWrapper">
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+            <span class="error-message">{{ form.email.errors }}</span>
+        </div>
+        <div class="fieldWrapper">
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+            <span class="error-message">{{ form.username.errors }}</span>
+        </div>
+        <div class="fieldWrapper">
+            <label for="id_password1">Password:</label>
+            {{ form.password1 }}
+            <span class="error-message">{{ form.password1.errors }}</span>
+        </div>
+        <div class="fieldWrapper">
+            <label for="id_password2">Confirm Password:</label>
+            {{ form.password2 }}
+            <span class="error-message">{{ form.password2.errors }}</span>
+        </div>
+        <div class="fieldWrapper">
+            <label for="id_profile_picture">Profile Picture:</label><br><br>
+            {{ form.profile_picture }}<br>
+            <span class="error-message">{{ form.profile_picture.errors }}</span>
+        </div><br>
+        <div class="fieldWrapper">
+            <label for="id_user_type">User Type:</label><br>
+            {{ form.user_type }}
+            <span class="error-message">{{ form.user_type.errors }}</span>
+        </div>
+        <button type="submit">Signup</button>
+    </form><br><br>   
+    <button><a href="{% url 'index' %}">I Have Account</a></button>
+    {% if user.is_authenticated %}
+        <p style="color: blue;">Already have an account? <a href="{% url 'index' %}">I Have Account</a></p><br><br>
+    {% else %}
+        <p> <a href="{% url 'index' %}">#</a></p><br>
+    {% endif %}
+</div>
+
+<script>
+  // Function to open modal
+  function openModal(modalId) {
+      var modal = document.getElementById(modalId);
+      modal.style.display = "block";
+  }
+
+  // Function to close modal
+  function closeModal(modalId) {
+      var modal = document.getElementById(modalId);
+      modal.style.display = "none";
+  }
+
+  document.getElementById('signupForm').addEventListener('submit', function(event) {
+      var emailField = document.getElementById('id_email');
+      var emailError = document.getElementById('id_email_error');
+
+      // You may need to adjust this logic based on how you handle email validation
+      if (emailField.value.trim() === '') {
+          emailError.innerText = 'Email cannot be empty.';
+          openModal('emailModal');
+          event.preventDefault(); // Prevent form submission
+      }
+  });
+</script>
+    <!-- JavaScript for changing background image -->
+    <script>
+        // Array of image URLs
+        const imageUrls = [
+            "{% static 'images/q1.jpg' %}",
+            "{% static 'images/q2.jpg' %}",
+            "{% static 'images/q3.jpg' %}",
+            "{% static 'images/q4.jpg' %}",
+            "{% static 'images/q5.jpg' %}",
+            "{% static 'images/q6.jpg' %}",
+            "{% static 'images/q7.jpg' %}",
+            "{% static 'images/q8.jpg' %}",
+            "{% static 'images/q9.jpg' %}",
+            "{% static 'images/q10.jpg' %}"
+        ];
+
+        let currentImageIndex = 0;
+
+        function changeBackgroundImage() {
+            // Change the background image of the body element
+            document.body.style.backgroundImage = `url(${imageUrls[currentImageIndex]})`;
+            // Update the current image index for cycling through images
+            currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+        }
+
+        // Change background image every 3 seconds (3000 milliseconds)
+        setInterval(changeBackgroundImage, 3000);
+    </script>
+</body>
+</html>

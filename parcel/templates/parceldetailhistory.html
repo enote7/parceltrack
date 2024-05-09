@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcel Detail History</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            margin-top: 20px; /* Adjust margin as needed */
+        }
+
+        .btn-download {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            table-layout: fixed; /* Prevents horizontal scrolling */
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            word-wrap: break-word; /* Allows text to wrap within cells */
+            overflow-wrap: break-word; /* Alternative property for older browsers */
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .edit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .image-cell {
+            width: 100px; /* Adjust size as needed */
+            height: 100px; /* Adjust size as needed */
+            border-radius: 50%; /* Creates a circular shape */
+            overflow: hidden; /* Ensures image stays within the circular shape */
+        }
+
+        .image-cell img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Maintains aspect ratio and covers the entire area */
+        }
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px;
+        }
+
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-right: 20px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .nav-link:hover {
+            color: #ddd;
+        }
+
+        .nav-link.active {
+            font-weight: bold;
+        }
+        .nav-item {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">Parcel System Logout</a>
+        <ul class="nav-links">
+            <li class="nav-item">
+                <a href="{% url 'home' %}" class="nav-link {% if request.path == '/home/' %}active{% endif %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'about_us' %}" class="nav-link {% if request.path == '/about_us/' %}active{% endif %}">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'track_status' %}" class="nav-link {% if request.path == '/track_status/' %}active{% endif %}">Track Status</a>
+            </li>
+            <!-- Add more navigation items as needed -->
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <h1>Parcel Detail History</h1>
+    <div class="btn-container">
+        {% if request.user.is_authenticated and request.user.is_parcel_staff %}
+            <a href="{% url 'download_parcel_report' %}" class="btn-download">Download Parcel Report</a>
+        {% endif %}
+    </div>   <br>
+    <table>
+        <thead>
+            <tr>
+                <th>Track</th>
+                <th>FROM</th>
+                <th>Contact</th>
+                <th>Describe</th>
+                <th>Value</th>
+                <th>Destiny </th>
+                <th>TO</th>
+                <th>Contact</th>
+                <th>Delivery Date</th>
+                <th>Delivery Time</th>
+                <th>Sender Email</th>
+                <th>Status</th>
+                <th>Image</th> <!-- New column for the image -->
+                <th>Action</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for parcel in parcels %}
+            <tr>
+                <td>{{ parcel.tracking_number }}</td>
+                <td>{{ parcel.client_name }}</td>
+                <td>{{ parcel.client_contact }}</td>
+                <td>{{ parcel.description }}</td>
+                <td>{{ parcel.value }}</td>
+                <td>{{ parcel.destination }}</td>
+                <td>{{ parcel.receiver_name }}</td>
+                <td>{{ parcel.receiver_contact }}</td>
+                <td>{{ parcel.delivery_date }}</td>
+                <td>{{ parcel.delivery_time }}</td>
+                <td>{{ parcel.sender_email }}</td>
+                <td>{{ parcel.status }}</td>
+                <td class="image-cell"><img src="{{ parcel.image.url }}" alt="Parcel Image"></td>
+                <td><a href="{% url 'edit_parcel' parcel.id %}" class="edit-btn">Edit</a></td>
+                <!-- Add more columns as needed -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table><br>
+    <div class="btn-container">
+        {% if request.user.is_authenticated and request.user.is_parcel_staff %}
+            <a href="{% url 'download_parcel_report' %}" class="btn-download">Download Parcel Report</a>
+        {% endif %}
+    </div>   
+</body>
+</html>

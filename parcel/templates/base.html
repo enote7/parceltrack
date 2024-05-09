@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>{% block title %}Your Website{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body class="light-mode" style="background-image: url('https://wallpaperaccess.com/full/2348994.jpg'); background-size: cover; background-repeat: no-repeat;">
+    <header>
+        <nav style="background-color: #0e0205;">
+            <ul>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            </ul>
+        </nav>
+        <!-- Theme switcher -->
+        <div id="theme-switcher" onclick="toggleTheme()">
+            🌙<em>Theme</em>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Content -->
+        {% block content %}
+
+        <script>
+            window.onload = function() {
+                alert("Lost ID report posted successfully!");  // Show pop-up message
+            }
+        </script>
+
+        {% endblock %}
+
+    </div>
+    <script>
+        // Function to toggle between dark and light themes
+        function toggleTheme() {
+            var body = document.body;
+            body.classList.toggle("dark-mode");
+            body.classList.toggle("light-mode");
+
+            // Store the theme preference in local storage
+            var isDarkMode = body.classList.contains("dark-mode");
+            localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+        }
+
+        // Check if the user has a theme preference stored in local storage
+        var storedTheme = localStorage.getItem("theme");
+        if (storedTheme === "dark") {
+            toggleTheme(); // Apply dark theme if it was previously selected
+        }
+    </script>
+</body>
+</html>

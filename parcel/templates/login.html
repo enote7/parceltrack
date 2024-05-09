@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style2.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url("{% static 'images/q1.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            transition: background-image 3s ease-in-out;
+        }
+
+        .form-container {
+            width: 350px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333; /* Dark text color */
+        }
+
+        .alert {
+            color: rgb(255, 0, 64); /* Red color for alerts */
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .login-btn,
+        .signup-btn,
+        .forgot-password-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: #007bff; /* Blue button color */
+            color: #fff; /* White text color */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover,
+        .signup-btn:hover,
+        .forgot-password-btn:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Login</h2>
+        {% if request.GET.next %}
+        <p>Please log in to access <strong>{{ request.GET.next }}</strong>.</p>
+        {% endif %}
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <form method="post">
+
+            <div id="invalid-login-popup" class="popup">
+                <span class="close-popup">&times;</span>
+                <p style="color: rgb(255, 0, 64); font-size: 15px;">Invalid email or password. Please try again.</p><br>
+                <p style="color: rgb(255, 0, 0); font-size: 15px;">Also confirm Your Email if not confirmed yet.</p>
+            </div>
+
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <br>
+        <form action="{% url 'signup' %}" method="get">
+            <button type="submit" class="signup-btn">Don't have an account yet 😔</button>
+        </form>
+        <br>
+        <form action="{% url 'password_reset' %}" method="get">
+            <button type="submit" class="forgot-password-btn">Forgot Password?</button>
+        </form>
+        <form action="{% url 'index' %}" method="get">
+            <button type="submit" class="forgot-password-btn">CANCEL</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to show the popup
+        function showPopup() {
+            document.getElementById('invalid-login-popup').style.display = 'block';
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById('invalid-login-popup').style.display = 'none';
+        }
+
+        // Check if the 'invalid_login' parameter exists in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const invalidLogin = urlParams.get('invalid_login');
+
+        if (invalidLogin === 'true') {
+            showPopup(); // Show the popup if 'invalid_login' is true
+        }
+
+        // Close the popup when the close button is clicked
+        document.querySelector('.close-popup').addEventListener('click', closePopup);
+
+        // Close the popup after 5 seconds automatically
+        setTimeout(closePopup, 2000);
+    </script>
+    <!-- JavaScript for changing background image -->
+    <script>
+        // Array of image URLs
+        const imageUrls = [
+            "{% static 'images/q1.jpg' %}",
+            "{% static 'images/q2.jpg' %}",
+            "{% static 'images/q3.jpg' %}",
+            "{% static 'images/q4.jpg' %}",
+            "{% static 'images/q5.jpg' %}",
+            "{% static 'images/q6.jpg' %}",
+            "{% static 'images/q7.jpg' %}",
+            "{% static 'images/q8.jpg' %}",
+            "{% static 'images/q9.jpg' %}",
+            "{% static 'images/q10.jpg' %}"
+        ];
+
+        let currentImageIndex = 0;
+
+        function changeBackgroundImage() {
+            // Change the background image of the body element
+            document.body.style.backgroundImage = `url(${imageUrls[currentImageIndex]})`;
+            // Update the current image index for cycling through images
+            currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+        }
+
+        // Change background image every 3 seconds (3000 milliseconds)
+        setInterval(changeBackgroundImage, 3000);
+    </script>
+
+</body>
+</html>

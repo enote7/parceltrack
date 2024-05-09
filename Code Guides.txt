@@ -1,0 +1,52 @@
+YOU NEED TO HAVE THESE SOFTWARES FIRST ON YOUR LAPTOP.
+	1. python
+	2. visual studio code
+	3. internet connection 😂😂
+
+TO SETUP THIS PROJECT, FOLLOW THESE STEPS THEN IF YOU HAVE THE ABOVE SOFTWARES.
+
+FIRST CREATE A VIRTUAL ENVIRONMENT;
+1. unzip the folder to your desired location
+2. enter inside the folder.
+3. open cmd inside that folder and then;
+	follow these commands writing them in the cmd.
+
+	a. python -m venv env
+	b. env\scripts\activate
+	c. pip install pipenv
+	d. pipenv install django
+	e. pipenv --venv
+		===NOTE: Here you will copy a path on the last line of the results from the terminal
+			-It will look like; " C:\Users\enote\Documents\gigs\present\kcco\env "( this is example path )
+-->	pip install django-select2
+
+	f. pip install pillow
+		-To help use images
+	g. code .
+		-This will be the last command and it will open the project in vscode.	
+
+	In vs code.
+		- press shift control P all together
+		- Search for " python select interpreter " and enter if seen, if not seen install python for vs code.
+			in extensions pannel on the left pane of vs code, search python and install. then repeat the 				process above if done.
+		-Then click on enter interpreter path and paste in the path you coped in cmd.
+			and add  " \bin\python " at the end and press enter.
+				it will look like;(  C:\Users\enote\Documents\gigs\present\kcco\env\bin\python ). 
+					---this is an example.
+
+		- After, then open the terminal
+		-run;
+			i. python manage.py collectstatic
+			 	--then type ""  yes  ""
+			ii. python manage.py makemigrations parcel
+			iii. python manage.py migrate
+			iv. python manage.py createsuperuser   ---( follow the rest to create an admin.)
+		
+
+last step;
+--->  pip install xhtml2pdf
+
+--->  pip install reportlab
+			>>This is for pdf report downloads
+
+		-  Then Run server using; "" python manage.py runserver "" command.

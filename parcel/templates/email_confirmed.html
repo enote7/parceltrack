@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <title>Your Email has been Confirmed!</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}">
+</head>
+<body>
+  <h1>Your Email has been Confirmed!</h1>
+  <p>You can now login to your account.</p>
+  <form action="{% url 'login' %}" method="get">
+    <button
+      type="submit"
+      style="
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+      "
+    >
+      LOGIN HERE 😌
+    </button>
+  </form>
+</body>
+</html>
